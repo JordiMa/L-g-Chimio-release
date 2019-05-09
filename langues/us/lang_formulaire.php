@@ -1,6 +1,6 @@
 ﻿<?php
 /*
-Copyright Laurent ROBIN CNRS - Université d'Orléans 2011 
+Copyright Laurent ROBIN CNRS - Université d'Orléans 2011
 Distributeur : UGCN - http://chimiotheque-nationale.enscm.fr
 
 Laurent.robin@univ-orleans.fr
@@ -9,7 +9,7 @@ Université d’Orléans
 Rue de Chartre – BP6759
 45067 Orléans Cedex 2
 
-Ce logiciel est un programme informatique servant à la gestion d'une chimiothèque de produits de synthèses. 
+Ce logiciel est un programme informatique servant à la gestion d'une chimiothèque de produits de synthèses.
 
 Ce logiciel est régi par la licence CeCILL soumise au droit français et respectant les principes de diffusion des logiciels libres.
 Vous pouvez utiliser, modifier et/ou redistribuer ce programme sous les conditions de la licence CeCILL telle que diffusée par le CEA,
@@ -21,9 +21,9 @@ En contrepartie de l'accessibilité au code source et des droits de copie, de mo
 
 A cet égard l'attention de l'utilisateur est attirée sur les risques associés au chargement, à l'utilisation, à la modification et/ou au développement
  et à la reproduction du logiciel par l'utilisateur étant donné sa spécificité de logiciel libre, qui peut le rendre complexe à manipuler et qui le
-réserve donc à des développeurs et des professionnels avertis possédant des connaissances informatiques approfondies. Les utilisateurs sont donc 
+réserve donc à des développeurs et des professionnels avertis possédant des connaissances informatiques approfondies. Les utilisateurs sont donc
 invités à charger et tester l'adéquation du logiciel à leurs besoins dans des conditions permettant d'assurer la sécurité de leurs systèmes et ou de
- leurs données et, plus généralement, à l'utiliser et l'exploiter dans les mêmes conditions de sécurité. 
+ leurs données et, plus généralement, à l'utiliser et l'exploiter dans les mêmes conditions de sécurité.
 
 Le fait que vous puissiez accéder à cet en-tête signifie que vous avez pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
@@ -31,7 +31,7 @@ termes.
 define('DEUXPOINTS',' :');
 define('CONFIG','Note on configuration :');
 define('MASS', '* Mass of product available : ');
-define('TYPE','* Structure Type : ');
+define('TYPE','Structure Type : ');
 define('CHARG', 'Load structure');
 define('CHARGESTRUC', 'Find a mol format to be loaded');
 define('DESSINSTRUC','You must draw a molecule');
@@ -39,11 +39,11 @@ define('MASSABS',MASS.' should be informed');
 define('SELECCOULEUR','Select a color');
 define('COULEUR','Product Color :');
 define('NBPILLULIER','Pill number  :');
-define('PURIFICATION','* Type of purification :');
+define('PURIFICATION','Type of purification :');
 define('SELECPURIFICATION','Select a purification');
-define('ASPECT','* Aspect :');
+define('ASPECT','Aspect :');
 define('SELECASPECT','Select the aspect');
-define('NOM','* Name in IUPAC nomenclature (English) :');
+define('NOM','Name in IUPAC nomenclature (English) :');
 define('REFERENCECAHIER','Laboratory notebook or thesis reference :');
 define('CONTRAT','Under contract');
 define('BREVET','Patented');
@@ -53,7 +53,7 @@ define('DUREE','Contract Period :');
 define('AN','Year(s)');
 define('NUMBREVET','Patent number :');
 define('PRECAUTION','Precautions to take');
-define('SOLVANTS','* Solvent solubilization :');
+define('SOLVANTS','Solvent solubilization :');
 define('MODOP','Procedure :');
 define('ANALYSE','Analysis');
 define('ANAELEM','Elemental analysis :');
@@ -174,17 +174,18 @@ define('MESSAUTO','Automatic email sent by Lg-Chimio from the address:');
 define('PLUSRECEPTION','If you no longer wish to receive emails, you can disable this feature in your Chemical Library account.');
 define('EXFICHIER','View existing file');
 define('OBSERVATION','Comments');
-define('EQUIPE','* Team --- manager:');
+define('EQUIPE','Team --- manager:');
 define('SELECTEQUIPE','Select a pair team --- manager');
 define('EQUIPEABS','The field team must be informed');
 define('OBLIGATOIRE','* : required field');
 define('INCOL','Colourless');
+define('INCON','Unknown');
 define('STRUC','Your structure has not been processed please make sure it is well developed and shows no errors');
 define('SYNTHESE','synthesis');
 define('HEMISYNTHESE','hemi-synthesis');
 define('NATURELLE','natural');
 define('INCONNUE','unknown');
-define('ORIGINEMOL','* Molecule origin');
+define('ORIGINEMOL','Molecule origin');
 define('SELECTORIGINEMOL','Select an origin');
 define('ORIGABS','The origin of the molecule is blank!');
 define('PURETESUB','Purity of the substance');
@@ -195,7 +196,7 @@ define('RECOMMANDATION','Recommendations for drawing the structures');
 define('DESSINSTRUC1','The structure you drew contains an abbreviation or a reaction arrow, see the recommendations for their drawing');
 define('INTERMEDIAIRE','intermediate of synthesis');
 define('FINALE','final molecule');
-define('ETAPMOL','* The step of synthesis of the molecule :');
+define('ETAPMOL','The step of synthesis of the molecule :');
 define('SELECTETAPMOL','Select a step');
 define('ETAPGABS','The step of synthesis of the molecule is blank!');
 define('QRCODE','Barcode/qrcode :');
@@ -210,4 +211,6 @@ define('ERREUR_SUP_PRECAUTION','Failed to delete the list of precaution in the d
 define('ERREUR_FICHIER','Failure of the insertion of a analysis file in the database');
 define('ERREURATTENTION',' Errors occurred while modifying the record');
 define('RETIRE','Remove this file');
+define('DATE_ENVOIE_EVOTEC','Date sent to EVOTEC : ');
+define('EQU_RES_CHI','Team - Manager - Chimist');
 ?>

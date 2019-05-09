@@ -1,6 +1,6 @@
 ﻿<?php
 /*
-Copyright Laurent ROBIN CNRS - Université d'Orléans 2011 
+Copyright Laurent ROBIN CNRS - Université d'Orléans 2011
 Distributeur : UGCN - http://chimiotheque-nationale.enscm.fr
 
 Laurent.robin@univ-orleans.fr
@@ -9,7 +9,7 @@ Université d’Orléans
 Rue de Chartre – BP6759
 45067 Orléans Cedex 2
 
-Ce logiciel est un programme informatique servant à la gestion d'une chimiothèque de produits de synthèses. 
+Ce logiciel est un programme informatique servant à la gestion d'une chimiothèque de produits de synthèses.
 
 Ce logiciel est régi par la licence CeCILL soumise au droit français et respectant les principes de diffusion des logiciels libres.
 Vous pouvez utiliser, modifier et/ou redistribuer ce programme sous les conditions de la licence CeCILL telle que diffusée par le CEA,
@@ -21,9 +21,9 @@ En contrepartie de l'accessibilité au code source et des droits de copie, de mo
 
 A cet égard l'attention de l'utilisateur est attirée sur les risques associés au chargement, à l'utilisation, à la modification et/ou au développement
  et à la reproduction du logiciel par l'utilisateur étant donné sa spécificité de logiciel libre, qui peut le rendre complexe à manipuler et qui le
-réserve donc à des développeurs et des professionnels avertis possédant des connaissances informatiques approfondies. Les utilisateurs sont donc 
+réserve donc à des développeurs et des professionnels avertis possédant des connaissances informatiques approfondies. Les utilisateurs sont donc
 invités à charger et tester l'adéquation du logiciel à leurs besoins dans des conditions permettant d'assurer la sécurité de leurs systèmes et ou de
- leurs données et, plus généralement, à l'utiliser et l'exploiter dans les mêmes conditions de sécurité. 
+ leurs données et, plus généralement, à l'utiliser et l'exploiter dans les mêmes conditions de sécurité.
 
 Le fait que vous puissiez accéder à cet en-tête signifie que vous avez pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
@@ -31,20 +31,20 @@ termes.
 define('DEUXPOINTS',' :');
 define('CONFIG','Note sur la configuration :');
 define('MASS','* Masse de produit disponible : ');
-define('TYPE','* Type de structure : ');
+define('TYPE','Type de structure : ');
 define('CHARG','Charger la structure');
 define('CHARGESTRUC','Rechercher une structure au format mol à charger');
 define('DESSINSTRUC','Vous devez dessiner une molécules');
 define('MASSABS',MASS.' doit être renseigné');
 define('SELECCOULEUR','Sélectionnez une couleur');
-define('COULEUR','* Couleur du produit :');
+define('COULEUR','Couleur du produit :');
 define('NBPILLULIER','Numéro de pilulier :');
-define('PURIFICATION','* Type de purification :');
+define('PURIFICATION','Type de purification :');
 define('SELECPURIFICATION','Sélectionnez une purification');
-define('ASPECT','* Aspect :');
+define('ASPECT','Aspect :');
 define('SELECASPECT','Sélectionnez l\'aspect');
-define('NOM','* Nom en nomenclature IUPAC (anglaise) :');
-define('REFERENCECAHIER','* Référence cahier de laboratoire ou thèse :');
+define('NOM','Nom en nomenclature IUPAC (anglaise) :');
+define('REFERENCECAHIER','Référence cahier de laboratoire ou thèse :');
 define('CONTRAT','Sous contrat');
 define('BREVET','Breveté');
 define('LIBRE','Libre');
@@ -53,7 +53,7 @@ define('DUREE','Durée du contrat :');
 define('AN','Année(s)');
 define('NUMBREVET','Numéro du brevet :');
 define('PRECAUTION','Précautions à prendre');
-define('SOLVANTS','* Solvants de solubilisation :');
+define('SOLVANTS','Solvants de solubilisation :');
 define('MODOP','Mode opératoire :');
 define('ANALYSE','Analyses');
 define('ANAELEM','Analyse élémentaire :');
@@ -145,7 +145,7 @@ define('EAU','eau');
 define('ETHANOL','éthanol');
 define('ETHERPET','éther de pétrole');
 define('ETHERETHYL','éther éthylique');
-define('INCONNU','inconnue');
+define('INCONNU','inconnu');
 define('INSOLUBLE','insoluble');
 define('METHANOL','méthanol');
 define('PYRIDINE','pyridine');
@@ -174,17 +174,18 @@ define('MESSAUTO','Courriel automatique envoyé par L-g-Chimio depuis l\'adresse
 define('PLUSRECEPTION','Si vous ne souhaitez plus recevoir de courriels, vous pouvez désactiver cette fonction dans votre compte Chimiothèque.');
 define('EXFICHIER','Voir le fichier existant');
 define('OBSERVATION','Observations');
-define('EQUIPE','* Equipe --- Responsable :');
+define('EQUIPE','Equipe --- Responsable :');
 define('SELECTEQUIPE','Sélectionez le couple équipe --- responsable');
 define('EQUIPEABS','Le champ équipe doit être renseigné');
 define('OBLIGATOIRE','* : champ obligatoire');
 define('INCOL','Incolore');
+define('INCON','Inconnue');
 define('STRUC','Votre structure n\'a pas été traitée veuillez vérifier que celle-ci soit bien développée et ne présente pas d\'erreurs');
 define('SYNTHESE','synthèse');
 define('HEMISYNTHESE','hémisynthèse');
 define('NATURELLE','naturelle');
 define('INCONNUE','inconnue');
-define('ORIGINEMOL','* Origine de la molécule :');
+define('ORIGINEMOL','Origine de la molécule :');
 define('SELECTORIGINEMOL','Sélectionnez une origine');
 define('ORIGABS','L\'origine de la molécule n\'est pas renseignée!');
 define('PURETESUB','Pureté de la substance');
@@ -195,7 +196,7 @@ define('RECOMMANDATION','Recommandations pour le dessin des structures');
 define('DESSINSTRUC1','La structure que vous avez dessinée contient une abréviation ou une flèche de réaction, consultez les recommandations pour le dessin des structures');
 define('INTERMEDIAIRE','intermédiaire de synthèse');
 define('FINALE','molécule finale');
-define('ETAPMOL','* Etape de synthèse de la molécule :');
+define('ETAPMOL','Etape de synthèse de la molécule :');
 define('SELECTETAPMOL','Sélectionnez une étape');
 define('ETAPGABS','L\'étape de synthèse de la molécule n\'est pas renseignée!');
 define('QRCODE','Code-barre/Qrcode :');
@@ -210,4 +211,6 @@ define('ERREUR_SUP_PRECAUTION','Echec de la suppression de la liste des précaut
 define('ERREUR_FICHIER','Echec de l\'insertion d\'un fichier d\'analyse dans la base de données');
 define('ERREURATTENTION',' Erreurs se sont produites durant la modification de la fiche');
 define('RETIRE','Retirer ce fichier');
+define('DATE_ENVOIE_EVOTEC','Date d\'envoi chez EVOTEC :');
+define('EQU_RES_CHI','Equipe - Responsable - Chimiste');
 ?>

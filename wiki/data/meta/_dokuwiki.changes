@@ -1,0 +1,23 @@
+1554737134	::1	E	manuel_administration	jordi			-47
+1554887576	::1	E	manuel_administration	jordi	[Importation de fichier SDF et RDF] 		172
+1554887711	::1	E	manuel_administration	jordi			245
+1554889651	::1	E	manuel_administration	jordi	[Importation de fichier SDF et RDF] 		762
+1554891322	::1	E	manuel_administration	jordi	1.5		-1845
+1554891567	::1	E	manuel_administration	jordi			45
+1554891583	::1	E	manuel_administration	jordi	[(ré)Attribution des molécules] 		6
+1554898882	::1	E	manuel_administration	jordi	[(ré)Attribution des molécules] 		609
+1555054796	::1	e	manuel_administration	jordi	[(ré)Attribution des molécules] 		-2
+1555055636	::1	E	manuel_administration	jordi	[réattribution des molécules] 		288
+1555055686	::1	e	manuel_administration	jordi	[Exportation au format CSV pour la pesée Evotec] 		7
+1555055811	::1	E	configuration	jordi	[Utilisateur] 		8
+1555060490	::1	E	manuel_administration	jordi	[Contrôle de la pureté et de la structure] 		-2
+1555060796	192.168.70.53	E	start	kiet			3
+1555060888	::1	C	upgrade	jordi	créée		21
+1555060954	192.168.70.53	E	manuel_administration	kiet			4
+1555060960	::1	E	sidebar	jordi	upgrade		24
+1555060969	::1	E	sidebar	jordi			0
+1555061125	192.168.70.53	E	manuel_administration	kiet			7
+1555061246	192.168.70.53	E	manuel_administration	kiet			2
+1556016167	::1	E	upgrade	jordi			1131
+1556023164	::1	E	upgrade	jordi	[Base de données] 		489
+1556030457	193.52.205.85	E	upgrade	kiet			3

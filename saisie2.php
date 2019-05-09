@@ -1,33 +1,34 @@
 <?php
 /*
-Copyright Laurent ROBIN CNRS - UniversitÈ d'OrlÈans 2011 
+Copyright Laurent ROBIN CNRS - UniversitÔøΩ d'OrlÔøΩans 2011
 Distributeur : UGCN - http://chimiotheque-nationale.org
 
 Laurent.robin@univ-orleans.fr
 Institut de Chimie Organique et Analytique
-UniversitÈ díOrlÈans
-Rue de Chartre ñ BP6759
-45067 OrlÈans Cedex 2
+UniversitÔøΩ dÔøΩOrlÔøΩans
+Rue de Chartre ÔøΩ BP6759
+45067 OrlÔøΩans Cedex 2
 
-Ce logiciel est un programme informatique servant ‡ la gestion d'une chimiothËque de produits de synthËses. 
+Ce logiciel est un programme informatique servant ÔøΩ la gestion d'une chimiothÔøΩque de produits de synthÔøΩses.
 
-Ce logiciel est rÈgi par la licence CeCILL soumise au droit franÁais et respectant les principes de diffusion des logiciels libres.
-Vous pouvez utiliser, modifier et/ou redistribuer ce programme sous les conditions de la licence CeCILL telle que diffusÈe par le CEA,
+Ce logiciel est rÔøΩgi par la licence CeCILL soumise au droit franÔøΩais et respectant les principes de diffusion des logiciels libres.
+Vous pouvez utiliser, modifier et/ou redistribuer ce programme sous les conditions de la licence CeCILL telle que diffusÔøΩe par le CEA,
  le CNRS et l'INRIA sur le site "http://www.cecill.info".
 
-En contrepartie de l'accessibilitÈ au code source et des droits de copie, de modification et de redistribution accordÈs par cette licence,
- il n'est offert aux utilisateurs qu'une garantie limitÈe. Pour les mÍmes raisons, seule une responsabilitÈ restreinte pËse sur l'auteur du
- programme, le titulaire des droits patrimoniaux et les concÈdants successifs.
+En contrepartie de l'accessibilitÔøΩ au code source et des droits de copie, de modification et de redistribution accordÔøΩs par cette licence,
+ il n'est offert aux utilisateurs qu'une garantie limitÔøΩe. Pour les mÔøΩmes raisons, seule une responsabilitÔøΩ restreinte pÔøΩse sur l'auteur du
+ programme, le titulaire des droits patrimoniaux et les concÔøΩdants successifs.
 
-A cet Ègard l'attention de l'utilisateur est attirÈe sur les risques associÈs au chargement, ‡ l'utilisation, ‡ la modification et/ou au dÈveloppement
- et ‡ la reproduction du logiciel par l'utilisateur Ètant donnÈ sa spÈcificitÈ de logiciel libre, qui peut le rendre complexe ‡ manipuler et qui le
-rÈserve donc ‡ des dÈveloppeurs et des professionnels avertis possÈdant des connaissances informatiques approfondies. Les utilisateurs sont donc 
-invitÈs ‡ charger et tester l'adÈquation du logiciel ‡ leurs besoins dans des conditions permettant d'assurer la sÈcuritÈ de leurs systËmes et ou de
- leurs donnÈes et, plus gÈnÈralement, ‡ l'utiliser et l'exploiter dans les mÍmes conditions de sÈcuritÈ. 
+A cet ÔøΩgard l'attention de l'utilisateur est attirÔøΩe sur les risques associÔøΩs au chargement, ÔøΩ l'utilisation, ÔøΩ la modification et/ou au dÔøΩveloppement
+ et ÔøΩ la reproduction du logiciel par l'utilisateur ÔøΩtant donnÔøΩ sa spÔøΩcificitÔøΩ de logiciel libre, qui peut le rendre complexe ÔøΩ manipuler et qui le
+rÔøΩserve donc ÔøΩ des dÔøΩveloppeurs et des professionnels avertis possÔøΩdant des connaissances informatiques approfondies. Les utilisateurs sont donc
+invitÔøΩs ÔøΩ charger et tester l'adÔøΩquation du logiciel ÔøΩ leurs besoins dans des conditions permettant d'assurer la sÔøΩcuritÔøΩ de leurs systÔøΩmes et ou de
+ leurs donnÔøΩes et, plus gÔøΩnÔøΩralement, ÔøΩ l'utiliser et l'exploiter dans les mÔøΩmes conditions de sÔøΩcuritÔøΩ.
 
-Le fait que vous puissiez accÈder ‡ cet en-tÍte signifie que vous avez pris connaissance de la licence CeCILL, et que vous en avez acceptÈ les
+Le fait que vous puissiez accÔøΩder ÔøΩ cet en-tÔøΩte signifie que vous avez pris connaissance de la licence CeCILL, et que vous en avez acceptÔøΩ les
 termes.
 */
+
 include_once 'script/administrateur.php';
 include_once 'script/secure.php';
 include_once 'autoload.php';
@@ -39,10 +40,36 @@ require 'script/connectionb.php';
 $sql="SELECT bingo.CheckMolecule('".$_POST['mol']."')";
 $resultat=$dbh->query($sql);
 $check =$resultat->fetch(PDO::FETCH_NUM);
-if ($check[0]==NULL) include_once 'saisieformulaire2.php';
+
+// [JM - 22/01/2019] Traduction de MOL en INCHI
+$sql1="SELECT Bingo.InchI('".$_POST["mol"]."','')";
+$resul1=$dbh->query($sql1);
+$row1=$resul1->fetch(PDO::FETCH_NUM);
+
+// [JM - 22/01/2019] Recherche INCHI existant
+$sql2="SELECT str_inchi FROM structure WHERE str_inchi ='".$row1[0]."'";
+$result2=$dbh->query($sql2);
+$row2=$result2->fetch(PDO::FETCH_NUM);
+
+// [JM - 22/01/2019] Avertis si doublon
+if ($row2[0]){
+	echo '<script language="javascript">';
+	// [JM - 22/01/2019] Si l'utilisateur annule, il revient √† la page pr√©c√©dente
+	echo 'if(confirm("Attention doublon ! La structure existe d√©j√† dans la base.\rVoulez-vous continuer ?")){
+
+	}
+	else{
+		window.stop();
+		history.back();
+	}';
+	echo '</script>';
+}
+
+if ($check[0]==NULL) include_once 'corps/saisieformulaire2.php';
 else {
 	$erreur=$check[0];
-	include_once 'saisie1.php';
+	include_once 'corps/saisie1.php';
 }
+
 include_once 'presentation/pied.php';
 ?>

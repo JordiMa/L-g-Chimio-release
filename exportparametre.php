@@ -33,7 +33,7 @@ include_once 'script/secure.php';
 include_once 'autoload.php';
 include_once 'langues/'.$_SESSION['langue'].'/presentation.php';
 include_once 'presentation/entete.php';
-$menu=11;
+$menu=12;
 include_once 'presentation/gauche.php';
 if (isset($_POST['emailexpor']) and isset($_POST['numexpor'])) {
 	require 'script/connectionb.php';
@@ -41,6 +41,6 @@ if (isset($_POST['emailexpor']) and isset($_POST['numexpor'])) {
 	$update=$dbh->exec($sql);
 	unset ($dbh);
 }
-include_once 'exportpara.php';
+include_once 'corps/exportpara.php';
 include_once 'presentation/pied.php';
 ?>
