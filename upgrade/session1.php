@@ -1,7 +1,7 @@
-<?php
+﻿<?php
 /*
 Copyright Laurent ROBIN CNRS - Université d'Orléans 2011
-Distributeur : UGCN - http://chimiotheque-nationale.org
+Distributeur : UGCN - http://chimiotheque-nationale.enscm.fr
 
 Laurent.robin@univ-orleans.fr
 Institut de Chimie Organique et Analytique
@@ -27,21 +27,34 @@ invités à charger et tester l'adéquation du logiciel à leurs besoins dans de
 
 Le fait que vous puissiez accéder à cet en-tête signifie que vous avez pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
-
 */
+include_once '../protection.php';
 //démarage de la session
 session_start();
+//vérification si les variables name_chimiste existe et si elles ne sont pas vide
+if (isset($_POST['name_chimiste']) && !empty($_POST['name_chimiste']) ) {
 
-//vérification si les variables name_chimiste et reponse existe et si elles ne sont pas vide
-if (isset($_POST['name_chimiste']) && isset($_POST['password_chimiste']) && !empty($_POST['name_chimiste']) && !empty($_POST['password_chimiste'])) {
-	 $pass=$_POST['password_chimiste'];
-
-	if (verification($_POST['name_chimiste'],$pass)) {
+	//appel de la function vérification  si elle renvoie TRUE la session est générée
+	if (verification ($_POST['name_chimiste'],$_POST['password_chimiste'])) {
 		session_regenerate_id();
-		$_SESSION['nom']=$nom_chim;
-		$_SESSION['langue']=$lang_chim;
-		// unset($dbh);
-		include_once 'entre.php';
+		$_SESSION['nom']=$_POST['name_chimiste'];
+		//appel le fichier de connexion à la base de données
+		require '../script/connectionb.php';
+		//préparation de la requète SQL
+		$sql = "SELECT chi_langue,chi_statut FROM chimiste WHERE chi_nom='".$_POST['name_chimiste']."'";
+		//les résultats sont retournées dans la variable $result
+		$result =$dbh->query($sql);
+		$row =$result->fetch(PDO::FETCH_NUM);
+		if ($row[1]=='{ADMINISTRATEUR}') {
+			$_SESSION['langue']=$row[0];
+			unset($dbh);
+			include_once 'entre.php';
+		}
+		else {
+			session_destroy();
+			unset($_SESSION);
+			include_once 'index.php';
+		}
 	}
 	//sinon redirection sur le fichier index.php avec un message d'erreur
 	else {
@@ -53,34 +66,28 @@ if (isset($_POST['name_chimiste']) && isset($_POST['password_chimiste']) && !emp
 }
 //Si les variables n'existes pas alors l'utilisateur est redirigé sur index.php avec un message d'erreur
 else {
-	session_destroy();
-	unset($_SESSION);
-	$message = "LOGPASSVIDE";
-	include_once 'index.php';
+	if (isset($_SESSION['nom']) and !empty($_SESSION['nom']) and isset($_SESSION['langue']) and !empty($_SESSION['langue'])) include_once 'entre.php';
+	else {
+		session_destroy();
+		unset($_SESSION);
+		$message = "LOGPASSVIDE";
+		include_once 'index.php';
+	}
 }
 
-function verification($nom,$pass){
+function verification ($nom,$pass) {
 	//appel le fichier de connexion à la base de données
-	require 'script/connectionb.php';
-
-	// déactivation automatique des chimiste > 1 an
-	$dbh->query("SELECT pro_chi_deactive();");
-	
-	$sql = "SELECT chi_id_chimiste, chi_password, chi_langue, chi_nom as nbres FROM chimiste WHERE chi_nom='$nom' and chi_passif='0'";
-
-	foreach  ($dbh->query($sql) as $row) {
-				if (password_verify($pass, $row['chi_password'])){
-					global $id_chim, $nom_chim, $lang_chim;
-					$id_chim = $row['chi_id_chimiste'];
-					$nom_chim = $row['nbres'];
-					$lang_chim = $row['chi_langue'];
-					//fermeture de la connexion à la base de données
-					unset($dbh);
-					return TRUE;
-				}
-  }
+	require '../script/connectionb.php';
+	//préparation de la requète SQL
+	$sql = "SELECT chi_password FROM chimiste WHERE chi_nom='$nom' and chi_passif='0'";
+	//les résultats sont retournées dans la variable $result
+	$result =$dbh->query($sql);
+	$num=$result->rowCount();
+	$row = $result->fetch(PDO::FETCH_NUM);
 	//fermeture de la connexion à la base de données
 	unset($dbh);
-	return FALSE;
+
+	if (password_verify($pass, $row[0])) return TRUE;
+	else return FALSE;
 }
 ?>

@@ -165,7 +165,7 @@ else {
 			}
 			elseif ($lefichier!=False) {
 
-				$fichier=stream_get_contents (${"fichier$filetype[$ifile]"}[0]);
+				$fichier=${"fichier$filetype[$ifile]"}[0];
 				$extension_fichier[1]=${"fichier$filetype[$ifile]"}[1];
 			}
 			else {
@@ -261,9 +261,10 @@ if (isset($_POST['purete']) && $_POST['purete'] != ''){
 	if($id{'sm'}>0) $sql.=", pro_id_sm='".$id{'sm'}."'";
 	if($id{'hrms'}>0) $sql.=", pro_id_hrms='".$id{'hrms'}."'";
 
-	$sql.=", pro_controle_purete = ".$_POST['chx_purete'];
-
-	$sql.=", pro_controle_structure = ".$_POST['chx_structure'];
+	if(isset($_POST['chx_purete']))
+		$sql.=", pro_controle_purete = ".$_POST['chx_purete'];
+	if(isset($_POST['chx_structure']))
+		$sql.=", pro_controle_structure = ".$_POST['chx_structure'];
 
 	$sql.=" where pro_id_produit='".$_POST['id']."'";
 

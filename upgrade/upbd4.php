@@ -138,12 +138,10 @@ if ($row[0]=='{ADMINISTRATEUR}') {
   ";
 
   $err = 0;
-  // [JM - 07/05/2019] Exécution de la requête
+
   $dbh->beginTransaction();
   $upd=$dbh->exec($update);
 
-  // [JM - 07/05/2019] Vérifie si une erreur est renvoyée
-  // [JM - 07/05/2019] 42701 -> DUPLICATE COLUMN
   if ($dbh->errorInfo()[0] == 42701){
     $update = str_replace("ALTER TABLE produit ADD pro_controle_purete integer;","",$update);
 
@@ -192,7 +190,6 @@ if ($row[0]=='{ADMINISTRATEUR}') {
 	$upd=$dbh->exec($update);
   }
 
-  // [JM - 07/05/2019] 42701 -> UNIQUE VIOLATION
   if ($dbh->errorInfo()[0] == 23505){
     $update = str_replace("INSERT INTO couleur (cou_id_couleur, cou_couleur) VALUES (218, 'INCON');","",$update);
 
@@ -260,21 +257,25 @@ if ($row[0]=='{ADMINISTRATEUR}') {
 	$upd=$dbh->exec($update);
   }
 
-  // [JM - 07/05/2019] Si erreur inconnu, on annule la transaction
   if ($dbh->errorInfo()[0] != 00000){
 	$dbh->rollBack();
     echo "Une erreur est survenue !<br/>";
     print_r($dbh->errorInfo());
     $err = 1;
   }
-  // [JM - 07/05/2019] si pas d'erreur, on commit
+
   if($err == 0){
     $upd=$dbh->exec($update);
-	$dbh->commit();
-    echo "<h2>Mises à jour effectué avec succès !</h2>";
-  	echo "<h3>Vous pouvez maintenant supprimer le dossier 'upgrade'</h3>";
-  	echo "<br/>";
-  	echo "<h3><a href='../oublie.php'>Veuillez demander un nouveau mot de passe en cliquant ici</a></h3>";
+  	$dbh->commit();
+    echo "<br/><h2 align=\"center\">Mettre à jour votre version de la base de données du logiciel de L-g-<i>Chimio</i> v1.5 vers la version 1.5.1</h2><br/><div align=\"center\">";
+    $formulaire=new formulaire ("Mjour","mjour.php","POST",true);
+    $formulaire->affiche_formulaire();
+    $formulaire->ajout_cache ("1.5","ver");
+    $formulaire->ajout_cache ("0","etape");
+    $formulaire->ajout_cache ("0","j");
+    $formulaire->ajout_button ("Mettre à jour","","submit","");
+    $formulaire->fin();
+    echo "</div>";
   }
 }
 else

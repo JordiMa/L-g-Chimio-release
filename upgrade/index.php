@@ -35,7 +35,16 @@ include_once '../langues/fr/presentation.php';
 if(file_exists(REPEPRINCIPAL."/script/connectionb.php")){
 	$fichier=file_get_contents(REPEPRINCIPAL."/script/connectionb.php");
 		include_once 'entete.php';
-		include_once 'connexion.php';
+		require '../script/connectionb.php';
+		$sql="SELECT para_version FROM parametres";
+		$result = $dbh->query($sql);
+		$row = $result->fetch(PDO::FETCH_NUM);
+		unset($dbh);
+
+		if($row[0] == "1.4")
+			include_once 'connexion.php';
+		else
+			include_once 'connexion1.php';
 }
 include_once 'pied.htm';
 ?>

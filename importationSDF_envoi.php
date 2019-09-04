@@ -1309,7 +1309,7 @@ if ($row[0]=='{ADMINISTRATEUR}') {
 					return $value;
 				}
 			}
-			return "ND";
+			return "INCON";
 		}
 
 		function G_to_MG($str){

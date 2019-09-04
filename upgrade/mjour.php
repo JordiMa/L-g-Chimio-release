@@ -40,5 +40,11 @@ if(file_exists(REPEPRINCIPAL."/script/connectionb.php"))
 if ($_POST["ver"]=='1.4') {
 	include_once 'upbd4.php';
 }
+if ($_POST["ver"]=='1.5') {
+	include_once 'upbd5.php';
+}
+if ($_POST["ver"]=='1.5.1') {
+	include_once 'upbd5-1.php';
+}
 include_once 'pied.htm';
 ?>

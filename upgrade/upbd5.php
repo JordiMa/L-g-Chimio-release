@@ -1,7 +1,7 @@
-<?php
+﻿<?php
 /*
 Copyright Laurent ROBIN CNRS - Université d'Orléans 2011
-Distributeur : UGCN - http://chimiotheque-nationale.org
+Distributeur : UGCN - http://chimiotheque-nationale.enscm.fr
 
 Laurent.robin@univ-orleans.fr
 Institut de Chimie Organique et Analytique
@@ -27,60 +27,53 @@ invités à charger et tester l'adéquation du logiciel à leurs besoins dans de
 
 Le fait que vous puissiez accéder à cet en-tête signifie que vous avez pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
-
 */
-//démarage de la session
-session_start();
+include_once '../script/secure.php';
+include_once '../protection.php';
+include_once '../langues/'.$_SESSION['langue'].'/presentation.php';
+echo "<tr>
+    <td bgcolor=\"#FFFFFF\" align=\"center\" valign=\"middle\" width=\"100%\" colspan=\"2\">";
 
-//vérification si les variables name_chimiste et reponse existe et si elles ne sont pas vide
-if (isset($_POST['name_chimiste']) && isset($_POST['password_chimiste']) && !empty($_POST['name_chimiste']) && !empty($_POST['password_chimiste'])) {
-	 $pass=$_POST['password_chimiste'];
+require '../script/connectionb.php';
 
-	if (verification($_POST['name_chimiste'],$pass)) {
-		session_regenerate_id();
-		$_SESSION['nom']=$nom_chim;
-		$_SESSION['langue']=$lang_chim;
-		// unset($dbh);
-		include_once 'entre.php';
-	}
-	//sinon redirection sur le fichier index.php avec un message d'erreur
-	else {
-		session_destroy();
-		unset($_SESSION);
-		$message = "LOGPASS";
-		include_once 'index.php';
-	}
+$sql="SELECT chi_statut FROM chimiste WHERE chi_nom='".$_SESSION['nom']."'";
+//les résultats sont retournés dans la variable $result
+$resulta = $dbh->query($sql);
+$row = $resulta->fetch(PDO::FETCH_NUM);
+$i=0;
+if ($row[0]=='{ADMINISTRATEUR}') {
+
+  $update ="
+  BEGIN;
+  UPDATE parametres set para_version = '1.5.1';
+  COMMIT;
+  ";
+
+  $err = 0;
+
+  $dbh->beginTransaction();
+  $upd=$dbh->exec($update);
+
+  if ($dbh->errorInfo()[0] != 00000){
+	$dbh->rollBack();
+    echo "Une erreur est survenue !<br/>";
+    print_r($dbh->errorInfo());
+    $err = 1;
+  }
+
+  if($err == 0){
+    $upd=$dbh->exec($update);
+  	$dbh->commit();
+    echo "<h2>Mises à jour effectué avec succès !</h2>";
+  	echo "<h3>Vous pouvez maintenant supprimer le dossier 'upgrade'</h3>";
+  	echo "<br/>";
+  }
 }
-//Si les variables n'existes pas alors l'utilisateur est redirigé sur index.php avec un message d'erreur
-else {
+else
+{
 	session_destroy();
 	unset($_SESSION);
-	$message = "LOGPASSVIDE";
 	include_once 'index.php';
 }
-
-function verification($nom,$pass){
-	//appel le fichier de connexion à la base de données
-	require 'script/connectionb.php';
-
-	// déactivation automatique des chimiste > 1 an
-	$dbh->query("SELECT pro_chi_deactive();");
-	
-	$sql = "SELECT chi_id_chimiste, chi_password, chi_langue, chi_nom as nbres FROM chimiste WHERE chi_nom='$nom' and chi_passif='0'";
-
-	foreach  ($dbh->query($sql) as $row) {
-				if (password_verify($pass, $row['chi_password'])){
-					global $id_chim, $nom_chim, $lang_chim;
-					$id_chim = $row['chi_id_chimiste'];
-					$nom_chim = $row['nbres'];
-					$lang_chim = $row['chi_langue'];
-					//fermeture de la connexion à la base de données
-					unset($dbh);
-					return TRUE;
-				}
-  }
-	//fermeture de la connexion à la base de données
-	unset($dbh);
-	return FALSE;
-}
+unset($dbh);
 ?>
