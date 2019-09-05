@@ -261,7 +261,6 @@ if(isset($_POST['chx_typeContrat'])){
 
 if (isset($_POST["pass"]) && password_verify($_POST["pass"],$row[3])){
 
-// TODO
 $countACB = count($arrayChampsBDD);
 for ($i=0; $i < $countACB; $i++) {
 	if(isset($_POST['chx_ChampsBDD_'.$i])){
@@ -388,7 +387,7 @@ for ($i=0; $i < $countACB; $i++) {
 			$result_sdf = $dbh->query($sql_sdf);
 
 			// [JM - 24/01/2019] Récupération de la liste des produits en plaque
-			$sql_plaque="SELECT pos_id_plaque, pos_id_produit FROM position;";
+			$sql_plaque="SELECT pos_id_plaque, pos_id_produit, pla_identifiant_local FROM position Inner Join plaque on position.pos_id_plaque = plaque.pla_id_plaque;";
 			$result_plaque =$dbh->query($sql_plaque);
 			$row_plaque=$result_plaque->fetchAll(PDO::FETCH_NUM);
 
@@ -470,9 +469,9 @@ for ($i=0; $i < $countACB; $i++) {
 								$contenuFichier_sdf .= "\n>  <plaque> (".($key + 1) .")";
 								// [JM - 24/01/2019] Boucle sur la liste des produits en plaque
 
-								$key_arr = array_search($value[0], array_column($row_plaque, 0));
+								$key_arr = array_search($value[0], array_column($row_plaque, 1));
 								if ($key_arr){
-									$contenuFichier_sdf .= "\n". $row_plaque[$key_arr][0];
+									$contenuFichier_sdf .= "\n". $row_plaque[$key_arr][2];
 								}
 								unset($key_arr);
 							}
@@ -760,9 +759,9 @@ for ($i=0; $i < $countACB; $i++) {
 								unset($value['pro_masse']);
 
 								if(in_array(SELECT_NUMPLAQUE, $arrayChampsExport)){
-									$key_arr = array_search($value[0], array_column($row_plaque, 0));
+									$key_arr = array_search($value[0], array_column($row_plaque, 1));
 									if ($key_arr){
-										$contenuFichier_csv[$key+1][array_search("Numéro de plaque", $contenuFichier_csv[0])] = $row_plaque[$key_arr][0];
+										$contenuFichier_csv[$key+1][array_search("Numéro de plaque", $contenuFichier_csv[0])] = $row_plaque[$key_arr][2];
 									}
 									unset($key_arr);
 								}

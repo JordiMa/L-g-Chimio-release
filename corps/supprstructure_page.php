@@ -149,15 +149,17 @@ if (isset($_POST['produit'])){
   		}';
   		echo '</script>';
 
-      // [JM - 07/05/2019] script de suppression
+      // [JM 2019] script de suppression
 
       $sql_plaque = "DELETE FROM position WHERE pos_id_produit = ".$row1[0];
       $sql_resultat = "DELETE FROM resultat WHERE res_id_produit = ".$row1[0];
+      $sql_champsProduit = "DELETE FROM champsProduit WHERE pro_id_produit = ".$row1[0];
       $sql_produit = "DELETE FROM produit WHERE pro_id_produit = ".$row1[0];
 
       $res0 = $dbh->exec($sql_plaque);
       $res1 = $dbh->exec($sql_resultat);
-      $res2 = $dbh->exec($sql_produit);
+      $res2 = $dbh->exec($sql_champsProduit);
+      $res3 = $dbh->exec($sql_produit);
     }
     else {
       echo "<script>alert('Mot de passe invalide');</script>";
@@ -223,18 +225,21 @@ if (isset($_POST['produit'])){
       <button name="suppr" value="suppr">Supprimer</button>
 <?php
     }
-    elseif ($res0 || $res1 || $res2 && isset($_POST['suppr'])) {
+    // [JM 2019] resultat de la suppression
+    elseif ($res0 || $res1 || $res3 && isset($_POST['suppr'])) {
       if($res0)
         echo "<h2>Produit supprimé de la plaque</h2>";
       if($res1)
         echo "<h2>Résultat supprimé</h2>";
-      if($res2)
+      if($res3)
         echo "<h2>Produit supprimé</h2>";
     }
     else {
       echo "<h2>Échec de la suppression</h2>";
     }
   }
+  else if (isset($_POST['produit']))
+  echo "<h2>Aucun résultat</h2>";
 ?>
 
 </form>

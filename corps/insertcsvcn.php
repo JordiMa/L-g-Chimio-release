@@ -53,7 +53,6 @@ if ($row[0]=='{ADMINISTRATEUR}') {
 		$contenu_fichier = file_get_contents($_FILES['fileCN']['tmp_name']);
 		$nombre_ligne_fichier = substr_count( $contenu_fichier, "\n" );
 		while(($donne = fgetcsv($fic,30,";"))!=FALSE) {
-
 			// 2 est le nombre de champs du fichier numéro local + numéro national
 			for ($k=0; $k<2; $k++) {
 				if(preg_match("/CN/",$donne[$k])) {

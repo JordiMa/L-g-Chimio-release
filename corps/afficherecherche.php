@@ -1,3 +1,4 @@
+<script src="js/jquery.min.js"></script>
 <?php
 /*
 Copyright Laurent ROBIN CNRS - Université d'Orléans 2011
@@ -366,10 +367,96 @@ if (!empty($id_sql)) {
 		print"<td><strong>".SOLVANT."</strong>&nbsp;".$solvant."</td>
 		  </tr>
 		  <tr><td><strong>".DOI."</strong>&nbsp;";
-		if (!empty($row2[19])) print"<a href=\"http://dx.doi.org/".$row2[19]."\" target=\"_blank\">".$row2[19]."</a>";
+		if (!empty($row2[19])) print"<a href=\"https://doi.org/".$row2[19]."\" target=\"_blank\">".$row2[19]."</a>";
 		print"</td><td><strong>".CAS."</strong>&nbsp;".$row2[20]."</td><td><strong>".HAL."</strong>&nbsp;";
 		if (!empty($row2[21])) print"<a href=\"http://hal.archives-ouvertes.fr/".$row2[21]."/fr/\" target=\"_blank\">".$row2[21]."</a>";
-			print"</td></tr></table>";
+			print"</td></tr>
+
+				<tr>
+				<td colspan=\"3\"><div class='hr click_annexe'>ANNEXE</div><hr id='arrow_annexe' class='arrow click_annexe'>
+				<table class='hr_annexe' width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"3\"><tr><td width=\"50%\"><div id=\"fb-render\"></div>";
+
+				$sql_annexe="SELECT * FROM champsAnnexe";
+				//les résultats sont retournées dans la variable $result
+				$result_annexe = $dbh->query($sql_annexe);
+				if ($result_annexe){
+					foreach ($result_annexe as $key => $value) {
+						echo $value[1];
+						//echo substr($value[1], intval(strpos($value[1], 'champsAnnexe_')),intval(strpos($value[1], '">')) - strpos($value[1], 'champsAnnexe_'));
+						//echo "<script>document.getElementsByName('".substr($value[1], intval(strpos($value[1], 'champsAnnexe_')),intval(strpos($value[1], '">')) - strpos($value[1], 'champsAnnexe_'))."')[0].value = '$value[0]' </script>";
+						if (!strpos($value[1], 'checkbox'))
+							echo "<script>document.getElementsByName('".substr($value[1], intval(strpos($value[1], 'champsAnnexe_')),intval(strpos($value[1], '">')) - strpos($value[1], 'champsAnnexe_'))."')[0].disabled = true;</script>";
+						else
+							echo "<script>document.getElementsByName('".substr($value[1], intval(strpos($value[1], 'champsAnnexe_')),intval(strpos($value[1], '">')) - strpos($value[1], 'champsAnnexe_'))."')[1].disabled = true;</script>";
+						}
+				}
+
+				$sql_data_annexe = 'Select pro_id_produit, cha_ID, data, HTML FROM champsProduit
+														Inner join champsAnnexe on champsProduit.cha_ID=champsAnnexe.ID
+														WHERE pro_id_produit = '. $id_sql;
+
+				$result_data_annexe = $dbh->query($sql_data_annexe);
+				if ($result_annexe){
+					foreach ($result_data_annexe as $key => $value) {
+						//echo substr($value[1], intval(strpos($value[1], 'champsAnnexe_')),intval(strpos($value[1], '">')) - strpos($value[1], 'champsAnnexe_'));
+						if (!strpos($value[3], 'checkbox'))
+							echo "<script>document.getElementsByName('".substr($value[3], intval(strpos($value[3], 'champsAnnexe_')),intval(strpos($value[3], '">')) - strpos($value[3], 'champsAnnexe_'))."')[0].value = '".str_replace("\r\n", "\\n", addslashes($value[2]))."' ;</script>";
+						else
+							if ($value[2] == 'true')
+								echo "<script>document.getElementsByName('".substr($value[3], intval(strpos($value[3], 'champsAnnexe_')),intval(strpos($value[3], '">')) - strpos($value[3], 'champsAnnexe_'))."')[1].checked = '".str_replace("\r\n", "\\n", addslashes($value[2]))."' ;</script>";
+					}
+				}
+
+				print"
+				</tr></table></table>";
+
+				echo "
+				<script>
+
+					$('.hr_analyses').slideToggle(0);
+					$('.hr_bibliographie').slideToggle(0);
+					$('.hr_annexe').slideToggle(0);
+
+					$('.click_analyses').click(function(){
+						$('.hr_analyses').slideToggle(0);
+
+						if (document.getElementById('arrow_analyses').style.borderWidth == '20px 20px 0px' || document.getElementById('arrow_analyses').style.borderWidth == ''){
+							document.getElementById('arrow_analyses').style.borderWidth = '0px 20px 20px 20px';
+							document.getElementById('arrow_analyses').style.borderColor = 'transparent transparent #99CC99 transparent';
+						}
+						else
+						if (document.getElementById('arrow_analyses').style.borderWidth == '0px 20px 20px'){
+							document.getElementById('arrow_analyses').style.borderWidth = '20px 20px 0 20px';
+							document.getElementById('arrow_analyses').style.borderColor = '#99CC99 transparent transparent transparent';
+						}
+					});
+					$('.click_bibliographie').click(function(){
+						$('.hr_bibliographie').slideToggle(0);
+
+						if (document.getElementById('arrow_bibliographie').style.borderWidth == '20px 20px 0px' || document.getElementById('arrow_bibliographie').style.borderWidth == ''){
+							document.getElementById('arrow_bibliographie').style.borderWidth = '0px 20px 20px 20px';
+							document.getElementById('arrow_bibliographie').style.borderColor = 'transparent transparent #99CC99 transparent';
+						}
+						else
+						if (document.getElementById('arrow_bibliographie').style.borderWidth == '0px 20px 20px'){
+							document.getElementById('arrow_bibliographie').style.borderWidth = '20px 20px 0 20px';
+							document.getElementById('arrow_bibliographie').style.borderColor = '#99CC99 transparent transparent transparent';
+						}
+					});
+					$('.click_annexe').click(function(){
+						$('.hr_annexe').slideToggle(0);
+
+						if (document.getElementById('arrow_annexe').style.borderWidth == '20px 20px 0px' || document.getElementById('arrow_annexe').style.borderWidth == ''){
+							document.getElementById('arrow_annexe').style.borderWidth = '0px 20px 20px 20px';
+							document.getElementById('arrow_annexe').style.borderColor = 'transparent transparent #99CC99 transparent';
+						}
+						else
+						if (document.getElementById('arrow_annexe').style.borderWidth == '0px 20px 20px'){
+							document.getElementById('arrow_annexe').style.borderWidth = '20px 20px 0 20px';
+							document.getElementById('arrow_annexe').style.borderColor = '#99CC99 transparent transparent transparent';
+						}
+					});
+				</script>";
 
 			//fermeture de la connexion à la base de données
 			unset($dbh);

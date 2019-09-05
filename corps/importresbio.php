@@ -1,6 +1,6 @@
 <?php
 /*
-Copyright Laurent ROBIN CNRS - Université d'Orléans 2011
+Copyright Laurent ROBIN CNRS - Université d'Orléans 2011 
 Distributeur : UGCN - http://chimiotheque-nationale.org
 
 Laurent.robin@univ-orleans.fr
@@ -9,7 +9,7 @@ Université d’Orléans
 Rue de Chartre – BP6759
 45067 Orléans Cedex 2
 
-Ce logiciel est un programme informatique servant à la gestion d'une chimiothèque de produits de synthèses.
+Ce logiciel est un programme informatique servant à la gestion d'une chimiothèque de produits de synthèses. 
 
 Ce logiciel est régi par la licence CeCILL soumise au droit français et respectant les principes de diffusion des logiciels libres.
 Vous pouvez utiliser, modifier et/ou redistribuer ce programme sous les conditions de la licence CeCILL telle que diffusée par le CEA,
@@ -21,9 +21,9 @@ En contrepartie de l'accessibilité au code source et des droits de copie, de mo
 
 A cet égard l'attention de l'utilisateur est attirée sur les risques associés au chargement, à l'utilisation, à la modification et/ou au développement
  et à la reproduction du logiciel par l'utilisateur étant donné sa spécificité de logiciel libre, qui peut le rendre complexe à manipuler et qui le
-réserve donc à des développeurs et des professionnels avertis possédant des connaissances informatiques approfondies. Les utilisateurs sont donc
+réserve donc à des développeurs et des professionnels avertis possédant des connaissances informatiques approfondies. Les utilisateurs sont donc 
 invités à charger et tester l'adéquation du logiciel à leurs besoins dans des conditions permettant d'assurer la sécurité de leurs systèmes et ou de
- leurs données et, plus généralement, à l'utiliser et l'exploiter dans les mêmes conditions de sécurité.
+ leurs données et, plus généralement, à l'utiliser et l'exploiter dans les mêmes conditions de sécurité. 
 
 Le fait que vous puissiez accéder à cet en-tête signifie que vous avez pris connaissance de la licence CeCILL, et que vous en avez accepté les
 termes.
@@ -46,13 +46,13 @@ if ($row[0]=='{ADMINISTRATEUR}') {
 	if (!isset($_POST['conccible'])) $_POST['conccible']="";
 	if (!isset($_POST['protocible'])) $_POST['protocible']="";
 	if (!isset($_POST['labocible'])) $_POST['labocible']="";
-
+	
 	print"<table width=\"164\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">
 		  <tr>
 			<td width=\"82\" height=\"23\" align=\"center\" valign=\"middle\" background=\"images/onglet.gif\"><a class=\"onglet\" href=\"resultatbio.php\">".CONSULTER."</a></td>
 			<td width=\"82\" height=\"23\" align=\"center\" valign=\"middle\" background=\"images/onglet1.gif\"><a class=\"onglet\" href=\"importbio.php\">".IMPORTER."</a></td>
 			</tr>
-			</table><br/>";
+			</table><br/>";  
 	if (!empty($erreur)) echo "<p align=\"center\" class=\"erreur\">".constant($erreur)."</p>";
 	$sql="SELECT * FROM cible ORDER BY cib_nom";
 	$resultat1=$dbh->query($sql);
@@ -102,11 +102,11 @@ if ($row[0]=='{ADMINISTRATEUR}') {
 		$formulaire3->fin();
 		print"</td></tr></table>";
 	}
-
+  
 	if (isset($_POST["precible"]) and !empty($_POST["precible"])) {
-
+	
 		if (!isset($_POST["labo"])) $_POST["labo"]="";
-
+	
 		print"</tr><tr><td valign=\"top\"><strong>".EXISTE;
 		$sql="SELECT cib_id_cible,lab_concentration,lab_protocol,lab_laboratoire,cib_uniprot,lab_id_labocible FROM cible,labocible WHERE cib_id_cible='".$_POST["precible"]."' and cible.cib_id_cible=labocible.lab_id_cible";
 		$resultat3=$dbh->query($sql);
@@ -143,13 +143,13 @@ if ($row[0]=='{ADMINISTRATEUR}') {
 		$formulaire3->fin();
 	}
 	if(!isset($_POST["precible"]) and !isset ($_POST["cible"]) or !empty($_POST["precible"])) print"</td></tr></table>";
-
+  
 	if (isset($_POST["cible"]) and !empty($_POST["cible"])) {
-
+	
 		if (!isset($_POST['molref'])) $_POST['molref']="";
 		if (!isset($_POST['resulref'])) $_POST['resulref']="";
 		if (!isset($_POST['uniteref'])) $_POST['uniteref']="";
-
+	
 		$sql="SELECT cib_id_cible,lab_concentration,lab_protocol,lab_laboratoire,cib_uniprot,lab_id_labocible FROM cible,labocible WHERE cib_id_cible='".$_POST["cible"]."' and cible.cib_id_cible=labocible.lab_id_cible";
 		$resultat3=$dbh->query($sql);
 		print"</td><td>";
@@ -204,7 +204,7 @@ if ($row[0]=='{ADMINISTRATEUR}') {
 		$formulaire2->ajout_cache ($_POST["labo"],"labo");
 		//fin du formulaire
 		$formulaire2->fin();
-
+		
 		$formulaire3=new formulaire ("bio4","insertcsv.php","POST",true);
 		$formulaire3->affiche_formulaire();
 		print"<table width=\"100%\" border=\"0\" cellspacing=\"2\" cellpadding=\"2\">";

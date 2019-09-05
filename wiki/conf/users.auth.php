@@ -9,5 +9,5 @@
 # login:passwordhash:Real Name:email:groups,comma,separated
 
 
-jordi:$2y$10$mdXNCpL6HUNjChU7X4poQeSsN9MlphztF6imzlM2g.QILkK1zBq16:Jordi Marzo:jordimarzo.pro@gmail.com:admin,user
-kiet:$2y$10$JqgEEa9r5s3aE79c1q0PwuF99sUcRziWHjmm.AICGXvwiYKBHq6l6:Kiet Tran:kiet.tran@enscm.fr:admin,user
+kiet:$2y$10$/vq2YxYgZ/e5nJP9dffUTeR0BqHjhmQg2cYD4V8AS2hb.9eGtHCi.:Kiet Tran:kiet.tran@enscm.fr:admin,user
+jordi:$2y$10$8ykP2TuLCoYz6WerXdScj.EgyIYr50CY5RVAwTEUPQJZd6THya/Qu:Jordi Marzo:jordimarzo.pro@gmail.com:admin,user
