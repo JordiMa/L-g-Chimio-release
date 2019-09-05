@@ -203,7 +203,6 @@ else {
 				echo "</p>";
 			}
 		}
-		//Probleme ici ??? // TODO:
 		elseif ((!empty($fichier) or !empty ($extension_fichier[1]) or !empty ($_POST['donnees'.$filetype[$ifile]])) or (isset($_POST[$filetype[$ifile].'type']) and !empty($_POST[$filetype[$ifile].'type']))) {
 			$sql="INSERT INTO ".$filetype[$ifile]." ($fichiertype,$extensiontype,$text";
 			if ($filetype[$ifile]=="sm" or $filetype[$ifile]=="hrms") $sql.=",$typesm";
@@ -579,6 +578,32 @@ if (isset($_POST['purete']) && $_POST['purete'] != ''){
 	}
 	//fin Section traitement des précautions
 	//**********************************
+
+
+	$sql_annexe="SELECT * FROM champsAnnexe";
+	//les résultats sont retournées dans la variable $result
+	$result_annexe = $dbh->query($sql_annexe);
+	$result_annexe->execute();
+	$r_annexe = $result_annexe->fetchAll();
+
+	function customSearch($keyword, $arrayToSearch){
+		foreach($arrayToSearch as $key => $arrayItem){
+			if(stristr( $arrayItem, $keyword)){
+				return $key;
+			}
+		}
+	}
+
+	foreach ($_POST as $key => $value) {
+		if (strstr($key, "champsAnnexe_")){
+			$keyid = customSearch($key, array_column($r_annexe, 'html'));
+			$insert_annexe = "INSERT INTO champsProduit VALUES (".$_POST['id'].",".$r_annexe[$keyid][0].",E'".addslashes($value)."');";
+			$dbh->exec($insert_annexe);
+			$insert_annexe = "UPDATE champsProduit SET data = E'".addslashes($value)."' WHERE cha_ID = ".$r_annexe[$keyid][0]." and  pro_id_produit = ".$_POST['id'].";";
+			$dbh->exec($insert_annexe);
+		}
+	}
+
 
 
 	if (!empty($change)) {

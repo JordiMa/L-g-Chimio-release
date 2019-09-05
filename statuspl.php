@@ -1,6 +1,6 @@
 <?php
 /*
-Copyright Laurent ROBIN CNRS - Universit� d'Orl�ans 2011
+Copyright Laurent ROBIN CNRS - Universit� d'Orl�ans 2011 
 Distributeur : UGCN - http://chimiotheque-nationale.org
 
 Laurent.robin@univ-orleans.fr

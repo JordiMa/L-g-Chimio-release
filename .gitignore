@@ -1,0 +1,7 @@
+script/connectionb.php
+script/administrateur.php
+script/config.json
+temp/
+wiki/data/cache/
+files/
+.vscode/

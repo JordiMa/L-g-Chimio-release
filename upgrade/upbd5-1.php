@@ -188,8 +188,7 @@ if ($row[0]=='{ADMINISTRATEUR}') {
     pur_ID SERIAL PRIMARY KEY,
     pur_purification CHARACTER VARYING(255) NOT NULL,
     pur_ref_book CHARACTER VARYING(255),
-    ext_Code_Extraits CHARACTER VARYING(255) NOT NULL references Extraits(ext_Code_Extraits),
-    UNIQUE (pur_purification, ext_Code_Extraits)
+    ext_Code_Extraits CHARACTER VARYING(255) NOT NULL references Extraits(ext_Code_Extraits)
   );
 
   CREATE TABLE IF NOT EXISTS Fichier_purification (
